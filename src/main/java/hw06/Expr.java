@@ -36,8 +36,13 @@ record Expr(String text) {
             }
 
             // TODO:
-            // if (ch.equals(")")) {
-            //   ...
+             if (ch.equals(")")) {
+                String element1 = stack.pop();
+                String element2 = stack.pop();
+                String element3 = stack.pop();
+
+                stack.push(applyOp(element3,element2,element1));
+             }
         }
 
         try {
@@ -46,8 +51,10 @@ record Expr(String text) {
         catch (NumberFormatException ee) {
             dumpStack();
             throw new RuntimeException("expected number: " + ee.toString());
-        }
+        } 
+
     }
+    
 
     static boolean isSpace(String xx) {
         return xx != null && Pattern.matches("^\\s+$", xx);
